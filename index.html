@@ -272,9 +272,11 @@
   .pcard{
     border:1px solid var(--line);background:var(--panel);
     display:flex;flex-direction:column;
-    transition:border-color .15s ease;
+    transition:border-color .15s ease, transform .15s ease;
+    cursor:pointer;
   }
-  .pcard:hover{border-color:var(--teal);}
+  .pcard:hover{border-color:var(--teal);transform:translateY(-2px);}
+  .pcard:focus-visible{outline:2px solid var(--teal);outline-offset:2px;}
   .pcard .pcard-head{
     display:flex;justify-content:space-between;align-items:center;
     padding:10px 16px;border-bottom:1px solid var(--line);
@@ -289,6 +291,67 @@
     border-top:1px dashed var(--line);padding-top:12px;
   }
   .pcard .icon{padding:20px 20px 0;color:var(--teal);}
+  .pcard .expand-hint{
+    margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:0.66rem;
+    letter-spacing:0.05em;text-transform:uppercase;color:var(--teal);
+    display:flex;align-items:center;gap:6px;
+  }
+
+  /* ---------- modal ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(6,14,24,0.78);
+    display:none;align-items:center;justify-content:center;
+    padding:24px;z-index:100;backdrop-filter:blur(3px);
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{
+    background:var(--bg-alt);border:1px solid var(--line);
+    max-width:640px;width:100%;max-height:86vh;overflow-y:auto;
+    position:relative;
+  }
+  .modal-head{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 22px;border-bottom:1px solid var(--line);
+    font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.05em;
+    text-transform:uppercase;color:var(--ink-dim);
+    position:sticky;top:0;background:var(--bg-alt);
+  }
+  .modal-head .sheet{color:var(--teal);}
+  .modal-close{
+    background:none;border:1px solid var(--line);color:var(--ink);
+    width:28px;height:28px;cursor:pointer;font-size:1rem;line-height:1;
+  }
+  .modal-close:hover{border-color:var(--amber);color:var(--amber);}
+  .modal-body{padding:26px 24px 30px;}
+  .modal-body h3{font-size:1.7rem;text-transform:none;font-weight:600;color:var(--ink);margin-bottom:6px;}
+  .modal-body .modal-meta{
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.04em;
+    text-transform:uppercase;color:var(--amber);margin-bottom:22px;
+  }
+  .modal-section{margin-bottom:20px;}
+  .modal-section:last-child{margin-bottom:0;}
+  .modal-section .lbl{
+    font-family:'JetBrains Mono',monospace;font-size:0.66rem;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--teal);margin-bottom:8px;
+  }
+  .modal-section p{margin:0;color:var(--ink-dim);font-size:0.92rem;}
+  .modal-section ul{margin:0;padding-left:18px;color:var(--ink-dim);font-size:0.92rem;}
+  .modal-section li{margin-bottom:4px;}
+  .modal-result{
+    border-top:1px dashed var(--line);padding-top:16px;margin-top:22px;
+    font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--amber);
+  }
+  .modal-gallery{
+    display:grid;grid-template-columns:1fr;gap:2px;
+    margin:0 -24px 22px;background:var(--line);
+  }
+  .modal-gallery figure{margin:0;background:var(--bg-alt);}
+  .modal-gallery img{width:100%;display:block;}
+  .modal-gallery figcaption{
+    padding:8px 24px;font-family:'JetBrains Mono',monospace;font-size:0.66rem;
+    letter-spacing:0.04em;text-transform:uppercase;color:var(--ink-dim);
+  }
+  .modal-gallery.hidden{display:none;}
 
   /* ---------- contact ---------- */
   .contact-block{
@@ -495,67 +558,112 @@
       <button class="filter-btn" data-filter="composites">Composites</button>
       <button class="filter-btn" data-filter="powertrain">Powertrain &amp; Testing</button>
       <button class="filter-btn" data-filter="combustion">Combustion &amp; Analysis</button>
+      <button class="filter-btn" data-filter="cfd">CFD &amp; Fluid Dynamics</button>
     </div>
 
     <div class="projects-grid reveal">
 
-      <article class="pcard" data-cat="structural">
+      <article class="pcard" data-cat="structural" onclick="openModal('p1')" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="pcard-head"><span class="sheet">SHEET 04.1</span><span>2024–2025</span></div>
         <div class="pcard-body">
           <h3>V4 Crankshaft Mechanism</h3>
           <p>Master's thesis: design, structural and elastohydrodynamic (EHD) analysis of a V4 crankshaft mechanism for a Formula Student powertrain, combining FEM structural verification with EHL lubrication optimization.</p>
           <div class="result">RESULT — Full FEM + EHD validation cycle</div>
+          <div class="expand-hint">&#8599; View full details</div>
         </div>
       </article>
 
-      <article class="pcard" data-cat="structural">
+      <article class="pcard" data-cat="structural" onclick="openModal('p2')" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="pcard-head"><span class="sheet">SHEET 04.2</span><span>2024–2025</span></div>
         <div class="pcard-body">
           <h3>Crankshaft Design &amp; EHL Optimization</h3>
           <p>Internship at University of Modena: analytical sizing, 3D CAD modelling and multibody simulation of a crankshaft mechanism to optimize lubrication dynamics.</p>
           <div class="result">RESULT — Analytical model to validated multibody sim</div>
+          <div class="expand-hint">&#8599; View full details</div>
         </div>
       </article>
 
-      <article class="pcard" data-cat="composites">
+      <article class="pcard" data-cat="composites" onclick="openModal('p3')" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="pcard-head"><span class="sheet">SHEET 04.3</span><span>2026</span></div>
         <div class="pcard-body">
           <h3>FIA Composite Chassis Structures</h3>
           <p>At YCOM: structural design of composite chassis components and assemblies for motorsport, from initial part design through production tooling and molds, plus design and setup of FIA-compliant test fixtures.</p>
           <div class="result">RESULT — From part design to production tooling</div>
+          <div class="expand-hint">&#8599; View full details</div>
         </div>
       </article>
 
-      <article class="pcard" data-cat="powertrain">
+      <article class="pcard" data-cat="powertrain" onclick="openModal('p4')" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="pcard-head"><span class="sheet">SHEET 04.4</span><span>2022–2024</span></div>
         <div class="pcard-body">
           <h3>Formula SAE Engine Performance &amp; Calibration</h3>
           <p>As Transmission Team Lead at MoRe Modena Racing: built a GT-Power engine performance model and ran multi-season engine calibration campaigns, including ignition and fuel mapping.</p>
           <div class="result">RESULT — 2+ seasons of test-bench calibration</div>
+          <div class="expand-hint">&#8599; View full details</div>
         </div>
       </article>
 
-      <article class="pcard" data-cat="powertrain">
+      <article class="pcard" data-cat="powertrain" onclick="openModal('p5')" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="pcard-head"><span class="sheet">SHEET 04.5</span><span>2019–2021</span></div>
         <div class="pcard-body">
           <h3>Engine Calibration &amp; Dynamometer Testing</h3>
           <p>At Polimarche Racing Team: calibration and validation of GT-Power models, dynamometer testing, and optimization of engine components based on experimental and simulation results.</p>
           <div class="result">RESULT — Simulation-to-test-bench correlation</div>
+          <div class="expand-hint">&#8599; View full details</div>
         </div>
       </article>
 
-      <article class="pcard" data-cat="combustion">
+      <article class="pcard" data-cat="combustion" onclick="openModal('p6')" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="pcard-head"><span class="sheet">SHEET 04.6</span><span>2021</span></div>
         <div class="pcard-body">
           <h3>Combustion &amp; Dynamics Analysis System</h3>
           <p>Bachelor's thesis: design of a system for combustion and dynamic phenomena analysis on a high-performance Formula SAE engine, built from scratch.</p>
           <div class="result">RESULT — Custom analysis system, built from scratch</div>
+          <div class="expand-hint">&#8599; View full details</div>
+        </div>
+      </article>
+
+      <article class="pcard" data-cat="cfd" onclick="openModal('p7')" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="pcard-head"><span class="sheet">SHEET 04.7</span><span>2025</span></div>
+        <div class="pcard-body">
+          <h3>CFD Simulation of an Engine Intake System</h3>
+          <p>University course project: steady-state CFD model of a motorcycle engine intake system, comparing four mesh strategies to evaluate mass flow rate, discharge coefficients and tumble vortex intensity.</p>
+          <div class="result">RESULT — 4 mesh strategies benchmarked, polyhedral mesh selected for best convergence</div>
+          <div class="expand-hint">&#8599; View full details</div>
         </div>
       </article>
 
     </div>
   </div>
 </section>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <span><span class="sheet" id="modalSheet">SHEET 04.1</span> <span id="modalPeriod"></span></span>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <h3 id="modalTitle"></h3>
+      <div class="modal-meta" id="modalMeta"></div>
+      <div class="modal-gallery hidden" id="modalGallery"></div>
+
+      <div class="modal-section">
+        <div class="lbl">Context</div>
+        <p id="modalContext"></p>
+      </div>
+      <div class="modal-section">
+        <div class="lbl">Approach</div>
+        <ul id="modalApproach"></ul>
+      </div>
+      <div class="modal-section">
+        <div class="lbl">Tools</div>
+        <p id="modalTools"></p>
+      </div>
+      <div class="modal-result" id="modalResult"></div>
+    </div>
+  </div>
+</div>
 
 <section id="contact">
   <div class="wrap">
@@ -611,6 +719,168 @@
   // close mobile nav on link click
   document.querySelectorAll('nav a').forEach(a=>{
     a.addEventListener('click', ()=>{ document.getElementById('navtoggle').checked = false; });
+  });
+
+  // ---------- project detail modal ----------
+  const projectDetails = {
+    p1:{
+      sheet:'SHEET 04.1', period:'2024–2025',
+      title:'V4 Crankshaft Mechanism',
+      meta:'Master\'s Thesis — Structural & Multibody',
+      context:'Thesis project developed for a Formula Student powertrain application: design of a V4 crankshaft mechanism, verified both structurally and from a lubrication standpoint.',
+      approach:[
+        'Structural design of the crankshaft mechanism, built up from analytical sizing.',
+        'FEM structural verification of the mechanism under load.',
+        'Elastohydrodynamic (EHD) analysis to characterize and optimize lubrication at the bearing interfaces.'
+      ],
+      tools:'CATIA V5/V6 for CAD modelling, FEM tools (Hypermesh / Optistruct / Marc Mentat), AVL EXCITE PowerUnit for multibody and EHD simulation.',
+      result:'RESULT — Full structural (FEM) and elastohydrodynamic (EHD) validation cycle; thesis discussed with final degree grade 108/110.'
+    },
+    p2:{
+      sheet:'SHEET 04.2', period:'2024–2025',
+      title:'Crankshaft Design & EHL Optimization',
+      meta:'Internship — University of Modena "Enzo Ferrari"',
+      context:'Internship carried out at the university, focused on the analytical and simulation-based design of a crankshaft mechanism, in continuity with the thesis work.',
+      approach:[
+        'Analytical calculations to define the mechanism\'s design parameters.',
+        'Development of the corresponding 3D CAD model.',
+        'Multibody simulation to assess system performance and optimize lubrication dynamics (EHL).'
+      ],
+      tools:'CATIA V5/V6, AVL EXCITE PowerUnit (multibody / EHL simulation).',
+      result:'RESULT — Full path from analytical model to validated multibody simulation, with lubrication optimization.'
+    },
+    p3:{
+      sheet:'SHEET 04.3', period:'2026',
+      title:'FIA Composite Chassis Structures',
+      meta:'YCOM — Mechanical Design / Structural Engineer',
+      context:'Current role at YCOM: structural design of composite components and assemblies for the motorsport industry, including chassis structures.',
+      approach:[
+        'Structural-oriented part design, from initial concept through production tooling, molds and patterns.',
+        'Design and setup of FIA-compliant test fixtures.',
+        'Authoring of technical procedures and design playbooks.',
+        'Contribution to internal R&D and reverse-engineering projects; complex surfacing and sheet-metal design.'
+      ],
+      tools:'CATIA V5/V6 (complex surfacing, GD&T, DFM), Windchill (PLM).',
+      result:'RESULT — Components taken from design through to production tooling, with test fixtures compliant with FIA regulations.'
+    },
+    p4:{
+      sheet:'SHEET 04.4', period:'2022–2024',
+      title:'Formula SAE Engine Performance & Calibration',
+      meta:'MoRe Modena Racing — Jr. Powertrain Engineer, Transmission Team Lead',
+      context:'Leadership of the Transmission subsystem team (2–3 members) within the university Formula SAE team, across more than two racing seasons.',
+      approach:[
+        'Management of Cost Engineering and Design Report deliverables for the transmission subsystem.',
+        'Development of a GT-Power engine performance model and of key engine components.',
+        'Repeated engine calibration campaigns on the test bench: ignition and fuel mapping, data acquisition and validation.'
+      ],
+      tools:'GT-Power (1D engine simulation), test-bench data acquisition systems.',
+      result:'RESULT — Over 2 seasons of test-bench calibration, with a focus on performance improvement and fuel efficiency.'
+    },
+    p5:{
+      sheet:'SHEET 04.5', period:'2019–2021',
+      title:'Engine Calibration & Dynamometer Testing',
+      meta:'Polimarche Racing Team — Jr. Powertrain Engineer',
+      context:'Early powertrain role within the Polimarche Formula SAE team, focused on correlating simulation models with physical test-bench results.',
+      approach:[
+        'Calibration and validation of GT-Power engine simulation models.',
+        'Engine performance calibration and testing on dynamometer / test bench.',
+        'Contribution to the design and optimization of engine components based on experimental and simulation results.'
+      ],
+      tools:'GT-Power, engine dynamometer / test bench.',
+      result:'RESULT — Reliable correlation between simulation models and experimental test-bench results.'
+    },
+    p6:{
+      sheet:'SHEET 04.6', period:'2021',
+      title:'Combustion & Dynamics Analysis System',
+      meta:'Bachelor\'s Thesis — Formula SAE',
+      context:'Bachelor\'s thesis project: design of a dedicated system for analyzing combustion and dynamic phenomena on a high-performance Formula SAE engine.',
+      approach:[
+        'Definition of the analysis system requirements based on the target engine\'s operating conditions.',
+        'Design of the system architecture, built from scratch.',
+        'Analysis of combustion behaviour and dynamic phenomena to support engine development.'
+      ],
+      tools:'CAD modelling, analytical and data-processing tools (MATLAB).',
+      result:'RESULT — Custom analysis system built from scratch; thesis discussed with final degree grade 94/110.'
+    },
+    p7:{
+      sheet:'SHEET 04.7', period:'2025',
+      title:'CFD Simulation of an Engine Intake System',
+      meta:'University Course Project — Fluid-Dynamic Simulation of Propulsion Systems',
+      context:'Course project for "Fluid-dynamic simulation of propulsion systems": a steady-state CFD model of the intake system of a motorcycle engine, built starting from a motorcycle cylinder head geometry sourced online and repaired/prepared for simulation.',
+      approach:[
+        'Geometry preparation: repair of the engine head surfaces and extraction of the fluid domain (intake port, valve, cylinder, plenum chamber) in CATIA, then import into STAR-CCM+.',
+        'Mesh generation across four strategies — trimmed and polyhedral cells, each with High Reynolds and Low Reynolds wall treatment — including a grid-independence study to select the optimal mesh density (70% of base size).',
+        'Local refinement around the valve curtain and cylinder to accurately resolve the boundary layer and Y+ requirements for each wall-treatment approach.',
+        'Definition of physics, boundary and initial conditions (steady, turbulent RANS with realizable k-ε, ideal gas), and of custom reports/field functions to compute discharge coefficients (CD, CF) and the tumble vortex ratio at varying valve lifts (2–10 mm).',
+        'Post-processing and comparison of velocity, Mach number, turbulent kinetic energy and mass flow rate across all four mesh strategies.'
+      ],
+      tools:'STAR-CCM+ (3D CFD), CATIA / SolidWorks and Hypermesh for geometry preparation, MATLAB for post-processing.',
+      result:'RESULT — Discharge coefficients and tumble ratio mapped across valve lifts from 2 to 10 mm; the polyhedral mesh was identified as the most robust choice, converging more reliably than the trimmed mesh at low valve lifts.',
+      images:[
+        {src:'assets/cfd/cfd-geometry.jpg', caption:'Fluid domain extraction from the engine head geometry'},
+        {src:'assets/cfd/cfd-mesh.jpg', caption:'Surface mesh detail around the valve and valve seat'},
+        {src:'assets/cfd/cfd-velocity.jpg', caption:'Velocity magnitude at 10mm lift — trimmed vs polyhedral, HR vs LR'},
+        {src:'assets/cfd/cfd-tumble.jpg', caption:'Tumble vortex streamlines at 10mm (left) vs 2mm (right) valve lift'}
+      ]
+    }
+  };
+
+  function openModal(id){
+    const d = projectDetails[id];
+    if(!d) return;
+    document.getElementById('modalSheet').textContent = d.sheet;
+    document.getElementById('modalPeriod').textContent = d.period;
+    document.getElementById('modalTitle').textContent = d.title;
+    document.getElementById('modalMeta').textContent = d.meta;
+    document.getElementById('modalContext').textContent = d.context;
+    document.getElementById('modalTools').textContent = d.tools;
+    document.getElementById('modalResult').textContent = d.result;
+
+    const gallery = document.getElementById('modalGallery');
+    gallery.innerHTML = '';
+    if(d.images && d.images.length){
+      d.images.forEach(img=>{
+        const fig = document.createElement('figure');
+        const image = document.createElement('img');
+        image.src = img.src;
+        image.alt = img.caption;
+        image.loading = 'lazy';
+        const cap = document.createElement('figcaption');
+        cap.textContent = img.caption;
+        fig.appendChild(image);
+        fig.appendChild(cap);
+        gallery.appendChild(fig);
+      });
+      gallery.classList.remove('hidden');
+    } else {
+      gallery.classList.add('hidden');
+    }
+
+    const list = document.getElementById('modalApproach');
+    list.innerHTML = '';
+    d.approach.forEach(item=>{
+      const li = document.createElement('li');
+      li.textContent = item;
+      list.appendChild(li);
+    });
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(){
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') closeModal();
+  });
+
+  // allow keyboard activation (Enter) on cards
+  document.querySelectorAll('.pcard').forEach(card=>{
+    card.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); card.click(); }
+    });
   });
 </script>
 
