@@ -157,6 +157,10 @@
   .hero h1 em{
     font-style:normal;color:var(--amber);
   }
+  .hero-subtitle{
+    font-family:'JetBrains Mono',monospace;font-size:0.95rem;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--teal);margin-top:14px;
+  }
   .hero .tagline{
     max-width:560px;
     color:var(--ink-dim);
@@ -199,13 +203,6 @@
   .profile-text p{color:var(--ink-dim);margin:0 0 16px;max-width:640px;}
   .profile-text .lead{color:var(--ink);font-size:1.1rem;}
 
-  .softskill{
-    margin-top:28px;padding:18px 20px;
-    border-left:2px solid var(--amber);
-    background:var(--panel);
-  }
-  .softskill p{margin:0;color:var(--ink-dim);font-size:0.92rem;}
-
   .edu-list{margin-top:36px;display:grid;gap:18px;}
   .edu-item{
     display:grid;grid-template-columns:150px 1fr;gap:20px;
@@ -233,7 +230,7 @@
   }
   @media (max-width:700px){.tl-item{grid-template-columns:1fr;gap:8px;}}
   .tl-item .date{
-    font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--teal);
+    font-family:'JetBrains Mono',monospace;font-size:0.95rem;font-weight:600;color:var(--ink-dim);
     padding-top:4px;
   }
   .tl-item h3{font-size:1.4rem;color:var(--ink);text-transform:none;font-weight:600;}
@@ -242,7 +239,9 @@
     font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;
     color:var(--amber);margin:4px 0 10px;
   }
-  .tl-item p{color:var(--ink-dim);font-size:0.94rem;margin:0;max-width:680px;}
+  .tl-item ul{margin:0;padding-left:18px;color:var(--ink-dim);font-size:0.94rem;max-width:680px;}
+  .tl-item li{margin-bottom:6px;}
+  .tl-item li:last-child{margin-bottom:0;}
 
   /* ---------- skills ---------- */
   .skills-grid{
@@ -254,6 +253,8 @@
   .skill-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line-soft);gap:12px;}
   .skill-row:last-child{border-bottom:none;}
   .skill-row .name{font-size:0.88rem;color:var(--ink);}
+  .skill-row .rating{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .skill-row .rating .num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--ink-dim);}
   .ticks{display:flex;gap:3px;flex-shrink:0;}
   .tick{width:6px;height:14px;background:var(--line);}
   .tick.on{background:var(--amber);}
@@ -408,7 +409,8 @@
   <div class="wrap hero-inner">
     <div class="eyebrow">Sheet 00 / Title Block</div>
     <h1>FRANCESCO<br><em>COLANGELO</em></h1>
-    <p class="tagline">Mechanical design engineer working across structural design, composites, FEM, CFD and multibody simulation — with race-proven experience in Formula SAE and motorsport engineering.</p>
+    <div class="hero-subtitle">Mechanical Engineer</div>
+    <p class="tagline">Mechanical design engineer working across structural design, composites, FEM, CFD and multibody simulation, with race-proven experience in Formula SAE and motorsport engineering.</p>
     <div class="tblock">
       <div class="cell">Role<span class="val">Structural / Design Engineer</span></div>
       <div class="cell">Sector<span class="val">Automotive &amp; Motorsport</span></div>
@@ -432,11 +434,8 @@
     </div>
     <div class="reveal">
       <div class="eyebrow">Sheet 01 / Profile</div>
-      <p class="lead">Mechanical engineer with a solid foundation in engineering fundamentals and hands-on experience turning analysis into hardware — from crankshaft mechanisms to FIA-compliant composite chassis structures.</p>
+      <p class="lead">Mechanical engineer with a solid foundation in engineering fundamentals and hands-on experience turning analysis into real, working components.</p>
       <p>Combines CAD modelling, FEM, CFD and multibody simulation to develop and optimize mechanical components, with a particular focus on the automotive and motorsport sectors. Comfortable moving between analytical calculation, simulation and physical test-bench validation.</p>
-      <div class="softskill">
-        <p>Fast learner with strong problem-solving skills honed under the pressure of competitive racing deadlines (Formula SAE), effective in international, cross-functional teams.</p>
-      </div>
 
       <div class="edu-list">
         <div class="edu-item">
@@ -470,6 +469,18 @@
   </div>
 </section>
 
+<section id="soft-skills">
+  <div class="wrap">
+    <div class="eyebrow reveal">Sheet 01b / Soft Skills</div>
+    <div class="tblock reveal">
+      <div class="cell">Learning<span class="val">Fast learner</span></div>
+      <div class="cell">Under pressure<span class="val">Strong problem-solving, racing deadlines</span></div>
+      <div class="cell">Teamwork<span class="val">Cross-functional teams</span></div>
+      <div class="cell">Environment<span class="val">International contexts</span></div>
+    </div>
+  </div>
+</section>
+
 <section id="experience">
   <div class="wrap">
     <div class="eyebrow reveal">Sheet 02 / Experience</div>
@@ -480,7 +491,11 @@
         <div>
           <h3>YCOM — Parma, Italy</h3>
           <span class="role">Mechanical Design Engineer / Structural Engineer</span>
-          <p>Design of advanced composite components and assemblies for motorsport, including chassis structures, with a structural-oriented approach — from initial part design through production tooling, molds and patterns. Design and setup of FIA-compliant test fixtures, technical procedures and design playbooks, plus internal R&amp;D and reverse-engineering work. Skilled in complex surfacing and sheet-metal design.</p>
+          <ul>
+            <li>Design of composite chassis structures and assemblies for motorsport, from part design through production tooling, molds and patterns.</li>
+            <li>Design and setup of FIA-compliant test fixtures; authored technical procedures and design playbooks.</li>
+            <li>Contributed to internal R&amp;D and reverse-engineering projects; skilled in complex surfacing and sheet-metal design.</li>
+          </ul>
         </div>
       </div>
       <div class="tl-item">
@@ -488,7 +503,11 @@
         <div>
           <h3>University of Modena — "Enzo Ferrari" Dept.</h3>
           <span class="role">Internship Student</span>
-          <p>Analytical calculations to define crankshaft mechanism design parameters, development of the corresponding 3D CAD model, and multibody simulations to assess system performance and optimize lubrication dynamics (EHL).</p>
+          <ul>
+            <li>Analytical calculations to define crankshaft mechanism design parameters.</li>
+            <li>Development of the corresponding 3D CAD model.</li>
+            <li>Multibody simulations to assess performance and optimize lubrication dynamics (EHL).</li>
+          </ul>
         </div>
       </div>
       <div class="tl-item">
@@ -496,7 +515,11 @@
         <div>
           <h3>MoRe Modena Racing — Modena, Italy</h3>
           <span class="role">Jr. Powertrain Engineer — Transmission Team Lead</span>
-          <p>Led the Transmission subsystem team (2–3 members), managing Cost Engineering and Design Report deliverables. Developed a GT-Power engine performance model and key engine components. Led repeated engine calibration campaigns across 2+ seasons, including ignition/fuel mapping and data acquisition/validation.</p>
+          <ul>
+            <li>Led the Transmission subsystem team (2–3 members), managing Cost Engineering and Design Report deliverables.</li>
+            <li>Developed a GT-Power engine performance model and key engine components.</li>
+            <li>Led engine calibration campaigns across 2+ seasons, including ignition/fuel mapping and data acquisition/validation.</li>
+          </ul>
         </div>
       </div>
       <div class="tl-item">
@@ -504,7 +527,11 @@
         <div>
           <h3>Polimarche Racing Team — Ancona, Italy</h3>
           <span class="role">Jr. Powertrain Engineer</span>
-          <p>Calibration and validation of GT-Power engine simulation models, engine performance testing on dynamometer/test bench, and contribution to the design and optimization of engine components based on experimental and simulation results.</p>
+          <ul>
+            <li>Calibration and validation of GT-Power engine simulation models.</li>
+            <li>Engine performance testing on dynamometer / test bench.</li>
+            <li>Contributed to the design and optimization of engine components based on experimental and simulation results.</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -518,31 +545,34 @@
     <div class="skills-grid reveal">
       <div class="skill-card">
         <h3>FEA</h3>
-        <div class="skill-row"><span class="name">Hypermesh</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div>
-        <div class="skill-row"><span class="name">Optistruct</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div>
-        <div class="skill-row"><span class="name">Marc Mentat</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div>
+        <div class="skill-row"><span class="name">Hypermesh</span><div class="rating"><span class="num">4/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div></div>
+        <div class="skill-row"><span class="name">Optistruct</span><div class="rating"><span class="num">3/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div><div class="tick"></div></div></div></div>
+        <div class="skill-row"><span class="name">Marc Mentat</span><div class="rating"><span class="num">2/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick"></div><div class="tick"></div><div class="tick"></div></div></div></div>
       </div>
       <div class="skill-card">
         <h3>CFD</h3>
-        <div class="skill-row"><span class="name">Star-CCM+ (3D)</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div>
-        <div class="skill-row"><span class="name">GT-Power (1D)</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div>
+        <div class="skill-row"><span class="name">Star-CCM+ (3D)</span><div class="rating"><span class="num">4/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div></div>
+        <div class="skill-row"><span class="name">GT-Power (1D)</span><div class="rating"><span class="num">4/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div></div>
       </div>
       <div class="skill-card">
         <h3>Multibody</h3>
-        <div class="skill-row"><span class="name">AVL EXCITE PowerUnit</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div>
+        <div class="skill-row"><span class="name">AVL EXCITE PowerUnit</span><div class="rating"><span class="num">4/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div></div>
       </div>
       <div class="skill-card">
         <h3>Design</h3>
-        <div class="skill-row"><span class="name">CATIA V5 / V6</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div></div></div>
+        <div class="skill-row"><span class="name">CATIA V5 / V6</span><div class="rating"><span class="num">5/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div></div></div></div>
+        <div class="skill-row"><span class="name">3DExperience</span><div class="rating"><span class="num">5/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div></div></div></div>
+        <div class="skill-row"><span class="name">SolidWorks</span><div class="rating"><span class="num">5/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div></div></div></div>
       </div>
       <div class="skill-card">
         <h3>Programming</h3>
-        <div class="skill-row"><span class="name">MATLAB / Simulink</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div>
+        <div class="skill-row"><span class="name">MATLAB / Simulink</span><div class="rating"><span class="num">4/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div></div>
       </div>
       <div class="skill-card">
         <h3>Dev Tools &amp; PLM</h3>
-        <div class="skill-row"><span class="name">Windchill</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div><div class="tick"></div></div></div>
-        <div class="skill-row"><span class="name">LaTeX / MS Office</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div>
+        <div class="skill-row"><span class="name">Windchill</span><div class="rating"><span class="num">4/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div></div>
+        <div class="skill-row"><span class="name">LaTeX</span><div class="rating"><span class="num">4/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick"></div></div></div></div>
+        <div class="skill-row"><span class="name">MS Office</span><div class="rating"><span class="num">5/5</span><div class="ticks"><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div><div class="tick on"></div></div></div></div>
       </div>
     </div>
   </div>
