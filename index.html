@@ -328,30 +328,32 @@
     font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.04em;
     text-transform:uppercase;color:var(--amber);margin-bottom:22px;
   }
-  .modal-section{margin-bottom:20px;}
-  .modal-section:last-child{margin-bottom:0;}
-  .modal-section .lbl{
-    font-family:'JetBrains Mono',monospace;font-size:0.66rem;letter-spacing:0.08em;
-    text-transform:uppercase;color:var(--teal);margin-bottom:8px;
-  }
-  .modal-section p{margin:0;color:var(--ink-dim);font-size:0.92rem;}
-  .modal-section ul{margin:0;padding-left:18px;color:var(--ink-dim);font-size:0.92rem;}
-  .modal-section li{margin-bottom:4px;}
   .modal-result{
     border-top:1px dashed var(--line);padding-top:16px;margin-top:22px;
     font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--amber);
   }
-  .modal-gallery{
-    display:grid;grid-template-columns:1fr;gap:2px;
-    margin:0 -24px 22px;background:var(--line);
+  .modal-step{
+    display:grid;grid-template-columns:26px 1fr;gap:14px;
+    padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid var(--line);
   }
-  .modal-gallery figure{margin:0;background:var(--bg-alt);}
-  .modal-gallery img{width:100%;display:block;}
-  .modal-gallery figcaption{
-    padding:8px 24px;font-family:'JetBrains Mono',monospace;font-size:0.66rem;
-    letter-spacing:0.04em;text-transform:uppercase;color:var(--ink-dim);
+  .modal-step:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .modal-step .step-num{
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal);
+    border:1px solid var(--line);width:26px;height:26px;display:flex;align-items:center;justify-content:center;
   }
-  .modal-gallery.hidden{display:none;}
+  .modal-step .step-content .lbl{
+    font-family:'JetBrains Mono',monospace;font-size:0.66rem;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--teal);margin-bottom:8px;
+  }
+  .modal-step p{margin:0 0 4px;color:var(--ink-dim);font-size:0.9rem;}
+  .modal-step ul{margin:0;padding-left:18px;color:var(--ink-dim);font-size:0.9rem;}
+  .modal-step li{margin-bottom:4px;}
+  .modal-step figure{margin:14px 0 4px;}
+  .modal-step img{width:100%;display:block;border:1px solid var(--line);}
+  .modal-step figcaption{
+    padding-top:7px;font-family:'JetBrains Mono',monospace;font-size:0.64rem;
+    letter-spacing:0.03em;text-transform:uppercase;color:var(--ink-dim);
+  }
 
   /* ---------- contact ---------- */
   .contact-block{
@@ -646,20 +648,9 @@
     <div class="modal-body">
       <h3 id="modalTitle"></h3>
       <div class="modal-meta" id="modalMeta"></div>
-      <div class="modal-gallery hidden" id="modalGallery"></div>
 
-      <div class="modal-section">
-        <div class="lbl">Context</div>
-        <p id="modalContext"></p>
-      </div>
-      <div class="modal-section">
-        <div class="lbl">Approach</div>
-        <ul id="modalApproach"></ul>
-      </div>
-      <div class="modal-section">
-        <div class="lbl">Tools</div>
-        <p id="modalTools"></p>
-      </div>
+      <div id="modalSteps"></div>
+
       <div class="modal-result" id="modalResult"></div>
     </div>
   </div>
@@ -727,101 +718,128 @@
       sheet:'SHEET 04.1', period:'2024–2025',
       title:'V4 Crankshaft Mechanism',
       meta:'Master\'s Thesis — Structural & Multibody',
-      context:'Thesis project developed for a Formula Student powertrain application: design of a V4 crankshaft mechanism, verified both structurally and from a lubrication standpoint.',
-      approach:[
-        'Structural design of the crankshaft mechanism, built up from analytical sizing.',
-        'FEM structural verification of the mechanism under load.',
-        'Elastohydrodynamic (EHD) analysis to characterize and optimize lubrication at the bearing interfaces.'
+      steps:[
+        {label:'Problem', text:'A Formula Student powertrain needed a V4 crankshaft mechanism verified both structurally and from a lubrication standpoint, as part of the master\'s thesis work.'},
+        {label:'Approach', items:[
+          'Structural design of the crankshaft mechanism, built up from analytical sizing.',
+          'FEM structural verification of the mechanism under load.',
+          'Elastohydrodynamic (EHD) analysis to characterize and optimize lubrication at the bearing interfaces.'
+        ]},
+        {label:'Tools', text:'CATIA V5/V6 for CAD modelling, FEM tools (Hypermesh / Optistruct / Marc Mentat), AVL EXCITE PowerUnit for multibody and EHD simulation.'}
       ],
-      tools:'CATIA V5/V6 for CAD modelling, FEM tools (Hypermesh / Optistruct / Marc Mentat), AVL EXCITE PowerUnit for multibody and EHD simulation.',
       result:'RESULT — Full structural (FEM) and elastohydrodynamic (EHD) validation cycle; thesis discussed with final degree grade 108/110.'
     },
     p2:{
       sheet:'SHEET 04.2', period:'2024–2025',
       title:'Crankshaft Design & EHL Optimization',
       meta:'Internship — University of Modena "Enzo Ferrari"',
-      context:'Internship carried out at the university, focused on the analytical and simulation-based design of a crankshaft mechanism, in continuity with the thesis work.',
-      approach:[
-        'Analytical calculations to define the mechanism\'s design parameters.',
-        'Development of the corresponding 3D CAD model.',
-        'Multibody simulation to assess system performance and optimize lubrication dynamics (EHL).'
+      steps:[
+        {label:'Problem', text:'Internship carried out at the university, in continuity with the thesis work: the crankshaft mechanism needed to be sized and its lubrication dynamics optimized.'},
+        {label:'Approach', items:[
+          'Analytical calculations to define the mechanism\'s design parameters.',
+          'Development of the corresponding 3D CAD model.',
+          'Multibody simulation to assess system performance and optimize lubrication dynamics (EHL).'
+        ]},
+        {label:'Tools', text:'CATIA V5/V6, AVL EXCITE PowerUnit (multibody / EHL simulation).'}
       ],
-      tools:'CATIA V5/V6, AVL EXCITE PowerUnit (multibody / EHL simulation).',
       result:'RESULT — Full path from analytical model to validated multibody simulation, with lubrication optimization.'
     },
     p3:{
       sheet:'SHEET 04.3', period:'2026',
       title:'FIA Composite Chassis Structures',
       meta:'YCOM — Mechanical Design / Structural Engineer',
-      context:'Current role at YCOM: structural design of composite components and assemblies for the motorsport industry, including chassis structures.',
-      approach:[
-        'Structural-oriented part design, from initial concept through production tooling, molds and patterns.',
-        'Design and setup of FIA-compliant test fixtures.',
-        'Authoring of technical procedures and design playbooks.',
-        'Contribution to internal R&D and reverse-engineering projects; complex surfacing and sheet-metal design.'
+      steps:[
+        {label:'Problem', text:'Current role at YCOM: composite chassis structures for motorsport need to be structurally sound, manufacturable and compliant with FIA safety regulations.'},
+        {label:'Approach', items:[
+          'Structural-oriented part design, from initial concept through production tooling, molds and patterns.',
+          'Design and setup of FIA-compliant test fixtures.',
+          'Authoring of technical procedures and design playbooks.',
+          'Contribution to internal R&D and reverse-engineering projects; complex surfacing and sheet-metal design.'
+        ]},
+        {label:'Tools', text:'CATIA V5/V6 (complex surfacing, GD&T, DFM), Windchill (PLM).'}
       ],
-      tools:'CATIA V5/V6 (complex surfacing, GD&T, DFM), Windchill (PLM).',
       result:'RESULT — Components taken from design through to production tooling, with test fixtures compliant with FIA regulations.'
     },
     p4:{
       sheet:'SHEET 04.4', period:'2022–2024',
       title:'Formula SAE Engine Performance & Calibration',
       meta:'MoRe Modena Racing — Jr. Powertrain Engineer, Transmission Team Lead',
-      context:'Leadership of the Transmission subsystem team (2–3 members) within the university Formula SAE team, across more than two racing seasons.',
-      approach:[
-        'Management of Cost Engineering and Design Report deliverables for the transmission subsystem.',
-        'Development of a GT-Power engine performance model and of key engine components.',
-        'Repeated engine calibration campaigns on the test bench: ignition and fuel mapping, data acquisition and validation.'
+      steps:[
+        {label:'Problem', text:'As Transmission Team Lead within the university Formula SAE team, engine performance and transmission deliverables needed to be managed across more than two racing seasons.'},
+        {label:'Approach', items:[
+          'Management of Cost Engineering and Design Report deliverables for the transmission subsystem.',
+          'Development of a GT-Power engine performance model and of key engine components.',
+          'Repeated engine calibration campaigns on the test bench: ignition and fuel mapping, data acquisition and validation.'
+        ]},
+        {label:'Tools', text:'GT-Power (1D engine simulation), test-bench data acquisition systems.'}
       ],
-      tools:'GT-Power (1D engine simulation), test-bench data acquisition systems.',
       result:'RESULT — Over 2 seasons of test-bench calibration, with a focus on performance improvement and fuel efficiency.'
     },
     p5:{
       sheet:'SHEET 04.5', period:'2019–2021',
       title:'Engine Calibration & Dynamometer Testing',
       meta:'Polimarche Racing Team — Jr. Powertrain Engineer',
-      context:'Early powertrain role within the Polimarche Formula SAE team, focused on correlating simulation models with physical test-bench results.',
-      approach:[
-        'Calibration and validation of GT-Power engine simulation models.',
-        'Engine performance calibration and testing on dynamometer / test bench.',
-        'Contribution to the design and optimization of engine components based on experimental and simulation results.'
+      steps:[
+        {label:'Problem', text:'Early powertrain role within the Polimarche Formula SAE team: simulation models needed to be correlated with physical test-bench results.'},
+        {label:'Approach', items:[
+          'Calibration and validation of GT-Power engine simulation models.',
+          'Engine performance calibration and testing on dynamometer / test bench.',
+          'Contribution to the design and optimization of engine components based on experimental and simulation results.'
+        ]},
+        {label:'Tools', text:'GT-Power, engine dynamometer / test bench.'}
       ],
-      tools:'GT-Power, engine dynamometer / test bench.',
       result:'RESULT — Reliable correlation between simulation models and experimental test-bench results.'
     },
     p6:{
       sheet:'SHEET 04.6', period:'2021',
       title:'Combustion & Dynamics Analysis System',
       meta:'Bachelor\'s Thesis — Formula SAE',
-      context:'Bachelor\'s thesis project: design of a dedicated system for analyzing combustion and dynamic phenomena on a high-performance Formula SAE engine.',
-      approach:[
-        'Definition of the analysis system requirements based on the target engine\'s operating conditions.',
-        'Design of the system architecture, built from scratch.',
-        'Analysis of combustion behaviour and dynamic phenomena to support engine development.'
+      steps:[
+        {label:'Problem', text:'Bachelor\'s thesis: a high-performance Formula SAE engine needed a dedicated system for analyzing combustion and dynamic phenomena, built from scratch.'},
+        {label:'Approach', items:[
+          'Definition of the analysis system requirements based on the target engine\'s operating conditions.',
+          'Design of the system architecture, built from scratch.',
+          'Analysis of combustion behaviour and dynamic phenomena to support engine development.'
+        ]},
+        {label:'Tools', text:'CAD modelling, analytical and data-processing tools (MATLAB).'}
       ],
-      tools:'CAD modelling, analytical and data-processing tools (MATLAB).',
       result:'RESULT — Custom analysis system built from scratch; thesis discussed with final degree grade 94/110.'
     },
     p7:{
       sheet:'SHEET 04.7', period:'2025',
       title:'CFD Simulation of an Engine Intake System',
       meta:'University Course Project — Fluid-Dynamic Simulation of Propulsion Systems',
-      context:'Course project for "Fluid-dynamic simulation of propulsion systems": a steady-state CFD model of the intake system of a motorcycle engine, built starting from a motorcycle cylinder head geometry sourced online and repaired/prepared for simulation.',
-      approach:[
-        'Geometry preparation: repair of the engine head surfaces and extraction of the fluid domain (intake port, valve, cylinder, plenum chamber) in CATIA, then import into STAR-CCM+.',
-        'Mesh generation across four strategies — trimmed and polyhedral cells, each with High Reynolds and Low Reynolds wall treatment — including a grid-independence study to select the optimal mesh density (70% of base size).',
-        'Local refinement around the valve curtain and cylinder to accurately resolve the boundary layer and Y+ requirements for each wall-treatment approach.',
-        'Definition of physics, boundary and initial conditions (steady, turbulent RANS with realizable k-ε, ideal gas), and of custom reports/field functions to compute discharge coefficients (CD, CF) and the tumble vortex ratio at varying valve lifts (2–10 mm).',
-        'Post-processing and comparison of velocity, Mach number, turbulent kinetic energy and mass flow rate across all four mesh strategies.'
+      steps:[
+        {label:'Problem',
+          text:'The intake system of an internal combustion engine strongly affects volumetric efficiency and in-cylinder flow structure. The goal was to build a steady-state CFD model of a motorcycle engine intake system able to map discharge coefficients and tumble vortex intensity as a function of valve lift, while identifying the most reliable mesh strategy for this class of problem.'},
+        {label:'Objectives', items:[
+          'Evaluate mass flow rate through the inlet and outlet of the intake system.',
+          'Map discharge coefficients (CD, CF) as a function of valve lift.',
+          'Characterize the intensity of the tumble vortex, a key turbulent phenomenon for combustion quality.',
+          'Compare four mesh strategies (trimmed / polyhedral × High Reynolds / Low Reynolds) to identify the most robust approach.'
+        ]},
+        {label:'Geometry Preparation',
+          text:'Starting from a motorcycle engine head CAD model, the surfaces were repaired and reorganized (head, intake port, valve body/seat/stem, liner, piston) to extract a clean fluid domain. The cylinder was extruded to the correct stroke length and a plenum chamber was added downstream to dampen flow fluctuations. A parametric "ValveLift" was introduced so the valve volume could be subtracted from the domain via boolean operation, making it fast to regenerate the geometry for each simulated lift.',
+          image:{src:'assets/cfd/cfd-geometry.jpg', caption:'Fluid domain extraction from the engine head geometry'}},
+        {label:'Mesh Generation & Strategy',
+          text:'Four mesh strategies were benchmarked in parallel: trimmed and polyhedral cell types, each combined with a High Reynolds and a Low Reynolds wall-treatment approach. A grid-independence study across four mesh densities showed differences below 1% between the 80% and 70% base sizes, so the 70% mesh was retained as the best accuracy/cost trade-off. Local refinement cylinders were added around the valve curtain and inside the cylinder to properly resolve these critical regions.',
+          image:{src:'assets/cfd/cfd-mesh.jpg', caption:'Surface mesh detail around the valve and valve seat'}},
+        {label:'Simulation Setup', items:[
+          'Physics: steady, three-dimensional, turbulent RANS with realizable k-ε (two-layer), ideal gas.',
+          'Boundary conditions: stagnation inlet and pressure outlet, sized from the engine bore/valve/tank reference lengths.',
+          'Custom reports and field functions built to compute discharge coefficients (CD, CF) and the tumble ratio (via angular-momentum field functions) at each valve lift from 2 to 10 mm.'
+        ]},
+        {label:'Tools', text:'STAR-CCM+ (3D CFD), CATIA / SolidWorks and Hypermesh for geometry preparation, MATLAB for post-processing.'},
+        {label:'Results — Velocity Field',
+          text:'Comparing the four mesh strategies at each lift showed a consistent trend: velocity and mass flow rate were slightly lower with the Low Reynolds approach than with High Reynolds at the same lift, while discharge coefficients CD and CF increased close to linearly with valve lift across all four strategies.',
+          image:{src:'assets/cfd/cfd-velocity.jpg', caption:'Velocity magnitude at 10mm lift — trimmed vs polyhedral, HR vs LR'}},
+        {label:'Results — Tumble Vortex',
+          text:'The tumble vortex was mapped by isolating the in-cylinder flow with a coordinate-system-aligned threshold and integrating angular momentum cell by cell. The vortex core is clearly visible at both high and low lift, but its size and intensity increase markedly at higher valve lift, consistent with the higher momentum entering the cylinder.',
+          image:{src:'assets/cfd/cfd-tumble.jpg', caption:'Tumble vortex streamlines at 10mm (left) vs 2mm (right) valve lift'}},
+        {label:'Conclusion',
+          text:'The trimmed mesh was computationally cheaper but harder to converge at low valve lifts, where the boundary layer becomes unstable — the 1mm lift case could not be converged even with local refinement. The polyhedral mesh, while slower, converged more reliably across the full lift range and was identified as the more robust choice for this application. Full experimental validation would require test-bench data, which was outside the scope of this course project.'}
       ],
-      tools:'STAR-CCM+ (3D CFD), CATIA / SolidWorks and Hypermesh for geometry preparation, MATLAB for post-processing.',
-      result:'RESULT — Discharge coefficients and tumble ratio mapped across valve lifts from 2 to 10 mm; the polyhedral mesh was identified as the most robust choice, converging more reliably than the trimmed mesh at low valve lifts.',
-      images:[
-        {src:'assets/cfd/cfd-geometry.jpg', caption:'Fluid domain extraction from the engine head geometry'},
-        {src:'assets/cfd/cfd-mesh.jpg', caption:'Surface mesh detail around the valve and valve seat'},
-        {src:'assets/cfd/cfd-velocity.jpg', caption:'Velocity magnitude at 10mm lift — trimmed vs polyhedral, HR vs LR'},
-        {src:'assets/cfd/cfd-tumble.jpg', caption:'Tumble vortex streamlines at 10mm (left) vs 2mm (right) valve lift'}
-      ]
+      result:'RESULT — Discharge coefficients and tumble ratio mapped across valve lifts from 2 to 10 mm; the polyhedral mesh was identified as the most robust choice, converging more reliably than the trimmed mesh at low valve lifts.'
     }
   };
 
@@ -832,37 +850,58 @@
     document.getElementById('modalPeriod').textContent = d.period;
     document.getElementById('modalTitle').textContent = d.title;
     document.getElementById('modalMeta').textContent = d.meta;
-    document.getElementById('modalContext').textContent = d.context;
-    document.getElementById('modalTools').textContent = d.tools;
     document.getElementById('modalResult').textContent = d.result;
 
-    const gallery = document.getElementById('modalGallery');
-    gallery.innerHTML = '';
-    if(d.images && d.images.length){
-      d.images.forEach(img=>{
-        const fig = document.createElement('figure');
-        const image = document.createElement('img');
-        image.src = img.src;
-        image.alt = img.caption;
-        image.loading = 'lazy';
-        const cap = document.createElement('figcaption');
-        cap.textContent = img.caption;
-        fig.appendChild(image);
-        fig.appendChild(cap);
-        gallery.appendChild(fig);
-      });
-      gallery.classList.remove('hidden');
-    } else {
-      gallery.classList.add('hidden');
-    }
+    const stepsEl = document.getElementById('modalSteps');
+    stepsEl.innerHTML = '';
+    d.steps.forEach((step, i)=>{
+      const wrap = document.createElement('div');
+      wrap.className = 'modal-step';
 
-    const list = document.getElementById('modalApproach');
-    list.innerHTML = '';
-    d.approach.forEach(item=>{
-      const li = document.createElement('li');
-      li.textContent = item;
-      list.appendChild(li);
+      const num = document.createElement('div');
+      num.className = 'step-num';
+      num.textContent = String(i+1).padStart(2,'0');
+
+      const content = document.createElement('div');
+      content.className = 'step-content';
+
+      const lbl = document.createElement('div');
+      lbl.className = 'lbl';
+      lbl.textContent = step.label;
+      content.appendChild(lbl);
+
+      if(step.text){
+        const p = document.createElement('p');
+        p.textContent = step.text;
+        content.appendChild(p);
+      }
+      if(step.items){
+        const ul = document.createElement('ul');
+        step.items.forEach(it=>{
+          const li = document.createElement('li');
+          li.textContent = it;
+          ul.appendChild(li);
+        });
+        content.appendChild(ul);
+      }
+      if(step.image){
+        const fig = document.createElement('figure');
+        const img = document.createElement('img');
+        img.src = step.image.src;
+        img.alt = step.image.caption;
+        img.loading = 'lazy';
+        const cap = document.createElement('figcaption');
+        cap.textContent = step.image.caption;
+        fig.appendChild(img);
+        fig.appendChild(cap);
+        content.appendChild(fig);
+      }
+
+      wrap.appendChild(num);
+      wrap.appendChild(content);
+      stepsEl.appendChild(wrap);
     });
+
     document.getElementById('modalOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
